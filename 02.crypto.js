@@ -42,4 +42,13 @@ randomBytesPro(64)
 	console.error(err);
 });
 
+(async() => {
+	let buf = await randomBytesPro(64);
+	let salt = buf.toString('base64');
+	let key = await pbkdf2Pro('1234', salt, 35085, 64, 'sha512');
+	console.log(key.toString('base64'));
+})();
 
+const cryptoSalt = require('./modules/util-crypto');
+const password = '1234';
+console.log(cryptoSalt(password));
